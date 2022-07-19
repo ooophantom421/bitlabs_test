@@ -51,6 +51,9 @@ const App:FunctionComponent<{
 
     console.log("usd value = " + value);
 
+    if (parseFloat(value) < 100.0)
+      return;
+      
     dispatch(setExchange(
       "USD",
       "b2384bf2-b14d-4916-aa97-85633ef05742",
@@ -60,6 +63,7 @@ const App:FunctionComponent<{
   };
 
   const onUpdateUSDC = (value:string) => {
+    /*
     console.log("onUpdateUSDC called : " + value);
     setUSDC(value);
 
@@ -70,7 +74,8 @@ const App:FunctionComponent<{
       "b2384bf2-b14d-4916-aa97-85633ef05742",
       value,
       "0.0"
-    ));   
+    ));
+    */
   };
 
   const onBuyNow = () => {

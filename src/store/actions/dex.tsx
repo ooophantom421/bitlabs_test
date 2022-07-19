@@ -1,5 +1,6 @@
 import { typeOptions } from '@testing-library/user-event/dist/type/typeImplementation';
 import { action, PayloadAction } from 'typesafe-actions';
+import axios from 'axios';
 
 import API from '../../api';
 import { 
@@ -14,11 +15,12 @@ export const setExchange = (
     target_amount: string,
 ) => (dispatch:any) => {
 
+    console.log(source_amount, typeof source_amount);
+
     const quotes = {
         "source_currency": source_currency,
         "target_crypto_asset_id": target_crypto_asset_id,
-        "source_amount": source_amount,
-        "target_amount": target_amount
+        "source_amount": source_amount
     };
 
     /* 
@@ -35,7 +37,26 @@ export const setExchange = (
     });
     */
 
-    API.post(`quotes`, { quotes })
+    var headerData = {
+        'headers':{
+            'Content-Type':'application/json'
+        }
+    };
+
+    const jsonData = JSON.stringify(quotes);
+
+    // let res = await axios.post('https://api-qjoa5a5qtq-uc.a.run.app/quotes', jsonData, headerData);
+    // let data = res.data;
+    // console.log(data);
+    // return;
+
+    axios.post('https://api-qjoa5a5qtq-uc.a.run.app/quotes', jsonData, headerData)
+    // axios.request({
+    //     method: 'post',
+    //     url: 'https://api-qjoa5a5qtq-uc.a.run.app/quotes',
+    //     data : jsonData,
+    //     headers: {'Content-Type': 'application/json'}
+    // })
     .then((result) => {
         dispatch({
             type: ACTION_TYPE_EXCHANGE_SUCCESS,
